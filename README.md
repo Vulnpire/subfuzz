@@ -41,11 +41,11 @@ Running the command:
 
 Will produce the following output:
 
-`
+```
 subdomain-test.example.com
 subdomain-example.example.com
 subdomain-demo.example.com
-`
+```
 
 ## Efficiency and Integration with Other Tools
 
