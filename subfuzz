@@ -1,0 +1,31 @@
+#!/usr/bin/python3
+
+import argparse
+
+def generate_subdomains(domain_pattern, wordlist_file):
+    try:
+        with open(wordlist_file, 'r') as file:
+            words = [line.strip() for line in file.readlines()]
+    except FileNotFoundError:
+        print(f"Error: The file '{wordlist_file}' was not found.")
+        return
+    
+    if 'FUZZ' not in domain_pattern:
+        print("Error: The domain pattern must contain the 'FUZZ' placeholder.")
+        return
+    
+    for word in words:
+        subdomain = domain_pattern.replace('FUZZ', word)
+        print(subdomain)
+
+def main():
+    parser = argparse.ArgumentParser(description='Generate subdomains by replacing FUZZ in the domain pattern with words from a wordlist.')
+    parser.add_argument('domain_pattern', type=str, help='Domain pattern with FUZZ placeholder (e.g., subdomainFUZZ.domain.tld)')
+    parser.add_argument('-w', '--wordlist', required=True, type=str, help='Path to the wordlist file')
+
+    args = parser.parse_args()
+
+    generate_subdomains(args.domain_pattern, args.wordlist)
+
+if __name__ == "__main__":
+    main()
